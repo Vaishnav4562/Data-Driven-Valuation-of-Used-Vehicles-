@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Old Car Price Prediction</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+  <style>
+
+    html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* removes unwanted horizontal scroll */
+  background: #000;   /* ensures no white strip shows */
+}
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+    body {
+      font: 21px Roboto, sans-serif;
+      line-height: 1.8;
+      color: #18232E;
+    }
+
+    p {
+      font-size: 19px;
+    }
+
+    .margin {
+      margin-bottom: 45px;
+    }
+    .wrapper_div{
+      height: 80vh;
+    }
+    .bg-1 {
+     
+      background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+       url('/static/carr.jpg'); 
+      /* background-size: 1800px 700px; */
+      color: #000000;
+      text-align: center;
+      min-height: 100vh;  /* full screen height */
+      margin: 0;
+      padding: 0;
+
+    }
+
+    .bg-2 {
+      background-color: #4475df;
+      /* Dark Blue */
+      color: #808000;
+    }
+
+    .bg-3 {
+      background-color: #e49d9d;
+      /* White */
+      color: #65b8a6;
+    }
+
+    .bg-4 {
+      background-color: #000000;
+      /* Black */
+      color: rgb(167, 110, 110);
+    }
+
+
+    .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+    }
+    .navbar-header{
+      width: 100%;
+    }
+    .navbar-nav li a:hover {
+      color: #1abc9c !important;
+    }
+
+    h1 {
+      text-align: center;
+    }
+    .form_row{
+      display: flex;
+      gap: 20px;
+    }
+    .form_div{
+          background: #ffffffb5;
+        padding: 16px;
+    }
+    .form_wrapper{
+      padding: 0 100px;
+    }
+    .label_input_div {
+      display: flex;
+      align-items: center;
+    }
+
+    .label_input_div label {
+      width: 50%;
+    }
+    .price_btn{
+          color: #fff;
+      font-size: 22px;
+      width: 200px;
+      display: flex;
+      justify-content: center;
+      margin: 60px auto 0;
+      font-size: 21px;
+    }
+    .form_div {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+.form_div:hover {
+  transform: scale(1.02);
+}
+.price_btn {
+  background: #007BFF;
+  border: none;
+  border-radius: 8px;
+  transition:  0.3s;
+}
+.price_btn:hover {
+  background: #0056b3;
+}
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-default bg-4">
+    <div class="container">
+      <div class="navbar-header">
+
+        <h1 style="color:white ;font: 30px Times New roman, sans-serif;"><b>Old Car Price Prediction</b></h1>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- First Container -->
+  <div class="container-fluid bg-1 text-center wrapper_div">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <h4 style="color:white;;font-size:22px;"><b>Project : Integreated Machine Learning into Web Application with
+          FLASK</b></h4>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="form_wrapper">
+      <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
+        <div class="row form_row">
+          <!-- <div class="col-md-4"></div> -->
+          <div class="col-md-6 form_div">
+            <div class="form-group label_input_div">
+              <label for="brand">Car Brand</label>
+              <select class="form-control" name="brand" id="brand" required>
+                <option value="">--Select Brand--</option>
+                <option value="Maruti">Maruti</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="Tata-Motors">Tata-Motors</option>
+                <option value="Honda">Honda</option>
+                <option value="Mahindra">Mahindra</option>
+                <option value="Renault">Renault</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Kia">Kia</option>
+                <option value="Ford">Ford</option>
+                <option value="Nissan">Nissan</option>
+                <option value="BMW">BMW</option>
+                <option value="Audi">Audi</option>
+                <option value="Volkswagen">Volkswagen</option>
+                <option value="Skoda">Skoda</option>
+              </select>
+            </div>
+            <div class="form-group label_input_div">
+              <label for="model">Model</label>
+              <select class="form-control" name="model" id="model" required>
+                <option value="">--Select Model--</option>
+              </select>
+            </div>
+            <div class="form-group label_input_div">
+              <label for="type_model">Model Type</label>
+              <select input type="text" class="form-control" name="type_model" id="type_model"
+                placeholder="Enter the type of  car Model_Type Ex: Medium" required="required" required>
+                <option value=0>Low</option>
+                <option value=1>Medium</option>
+                <option value=2>High</option>
+              </select>
+
+            </div>
+            <div class="form-group label_input_div">
+              <label for="age_of_car">Car Age</label>
+              <input type="text" class="form-control" name="age_of_car" id="age_of_car"
+                placeholder="Enter the age of car Ex: 1 " required="required">
+            </div>
+            <div class="form-group label_input_div">
+              <label for="transmission">Transmission</label>
+              <select input type="text" class="form-control" name="transmission" id="transmission"
+                placeholder="Enter the type of transmission car Ex: Manual" required="required" required>
+                <option value=0>Automatic</option>
+                <option value=1>Manual</option>
+                <option value=2>SemiAuto</option>
+              </select>
+
+            </div>
+            <div class="form-group label_input_div">
+              <label for="mileage"> Miles runned</label>
+              <input type="text" class="form-control" name="mileage" id="mileage"
+                placeholder="Enter the Total miles travelled or covered Ex: 4562" required="required">
+            </div>
+          </div>
+          <div class="col-md-6 form_div">
+            <div class="form-group label_input_div">
+              <label for="fuelType">FuelType</label>
+              <select input type="text" class="form-control" name="fuelType" id="fuelType"
+                placeholder="Enter the fuelType of car Ex: Petrol " required="required" required>
+                <option value=0>Diesel</option>
+                <option value=1>Petrol</option>
+                <option value=2>Hybrid</option>
+                <option value=3>Other</option>
+              </select>
+            </div>
+            <div class="form-group label_input_div">
+              <label for="tax">Car Tax</label>
+              <input type="text" class="form-control" name="tax" id="tax"
+                placeholder="Enter the Tax to be paid for the car Ex: 145" required="required">
+            </div>
+            <div class="form-group label_input_div">
+              <label for="mpg" style="color:black">Car Mileage</label>
+              <input type="text" class="form-control" name="mpg" id="mpg"
+                placeholder="Enter the mileage of the car Ex: 49.6 " required="required">
+            </div>
+            <div class="form-group label_input_div">
+              <label for="engineSize" style="color:black">Engine size</label>
+              <input type="text" class="form-control" name="engineSize" id="engineSize"
+                placeholder="Enter the Size of the Enginer Ex: 2.0 " required="required">
+            </div>
+            <div class="form-group label_input_div">
+              <label for="images">Car Images</label><br>
+              <input type="file" name="images" id="images" multiple accept="image/*"><br><br>
+
+              <!--<input type="submit" value="Upload">-->
+            </div>
+          </div>
+        </div>  
+        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        <button type="submit" class="btn btn-primary btn-block btn-large price_btn"><b>Predict Price</b></button>
+      </form>
+    </div>
+    <!-- <div class="col-md-4"></div> -->
+  </div>
+  </form>
+  </div>
+  </div>
+<script>
+  document.querySelector("form").addEventListener("submit", function() {
+    document.getElementById("predictBtn").innerHTML = "Predicting...";
+  });
+</script>
+<script>
+    const carModels = {
+      "Maruti": ["Swift", "Alto", "Baleno", "Wagon R"],
+      "Hyundai": ["i10", "i20", "Verna", "Creta"],
+      "Tata-Motors": ["Nexon", "Tiago", "Harrier"],
+      "Honda": ["Amaze", "City"],
+      "Mahindra": ["XUV300", "XUV500", "Thar"],
+      "Renault": ["Kwid", "Triber", "Kiger"],
+      "Toyota": ["Innova", "Fortuner", "Cruiser"],
+      "Kia": ["Seltos", "Sonet"],
+      "Ford": ["Figo", "Aspire", "Ecosport"],
+      "Nissan": ["Magnite", "Kicks"],
+      "BMW": ["X1", "X3", "3 Series", "5 Series"],
+      "Audi": ["A3", "A4", "Q3", "Q5"],
+      "Volkswagen": ["Polo", "Vento"],
+      "Skoda": ["Rapid", "Slavia", "Kushaq"]
+    };
+
+    document.getElementById('brand').addEventListener('change', function () {
+      const brand = this.options[this.selectedIndex].text;
+      const modelSelect = document.getElementById('model');
+      modelSelect.innerHTML = '<option value="">--Select Model--</option>';
+
+      if (carModels[brand]) {
+        carModels[brand].forEach(function (model) {
+          const option = document.createElement('option');
+          option.value = `${brand}-${model}`;
+          option.textContent = `${brand}-${model}`;
+          modelSelect.appendChild(option);
+        });
+      }
+    });
+
+
+
+    
+  </script>
+
+</body>
+
+</html> 
